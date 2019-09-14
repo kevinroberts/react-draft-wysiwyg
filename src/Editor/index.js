@@ -231,23 +231,22 @@ export default class WysiwygEditor extends Component {
     }
   };
 
-  onChange: Function = (editorState: Object): void => {
+  onChange: Function = (editorState: Object, focus = false): void => {
     const { readOnly, onEditorStateChange } = this.props;
-    if (
-      !readOnly &&
-      !(
-        getSelectedBlocksType(editorState) === "atomic" &&
-        editorState.getSelection().isCollapsed
-      )
-    ) {
+    if (!readOnly &&
+        !(getSelectedBlocksType(editorState) === 'atomic' &&
+            editorState.getSelection().isCollapsed)) {
       if (onEditorStateChange) {
         onEditorStateChange(editorState, this.props.wrapperId);
       }
-      if (!hasProperty(this.props, "editorState")) {
+      if (!hasProperty(this.props, 'editorState')) {
         this.setState({ editorState }, this.afterChange(editorState));
       } else {
         this.afterChange(editorState);
       }
+    }
+    if (focus) {
+      this.focusEditor();
     }
   };
 
@@ -519,7 +518,7 @@ export default class WysiwygEditor extends Component {
             toolbarCustomButtons.map((button, index) =>
               React.cloneElement(button, { key: index, ...controlProps })
             )}
-        </div>  
+        </div>
         )}
         <div
           ref={this.setWrapperReference}

@@ -163,7 +163,7 @@ class Link extends Component {
     }
     const entityKey = editorState
       .getCurrentContent()
-      .createEntity("LINK", "MUTABLE", {
+      .createEntity("LINK", "IMMUTABLE", {
         url: linkTarget,
         targetOption: linkTargetOption
       })
@@ -196,7 +196,7 @@ class Link extends Component {
       undefined
     );
     onChange(
-      EditorState.push(newEditorState, contentState, "insert-characters")
+      EditorState.push(newEditorState, contentState, "insert-characters"), true
     );
     this.doCollapse();
   };
